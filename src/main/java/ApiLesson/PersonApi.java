@@ -38,6 +38,13 @@ public class PersonApi {
                 .getJSONObject(0);
 
         Person res = new Person();
+
+        /** Импортировал и использовал класс DateTimeFormatter, чтобы парсить формат времени в определенном заданном ключе
+         *  метод .ofPattern() позволяет задать шаблон, по которому форматируются полученные данные
+         *  в документации узнал какие символы используют для определенных мер измерения времени:
+         *  yyyy - год, ММ - месяц, dd - дни, HH - часы, mm - минуты, ss - секунды, SSS - милисекунды, в 'T' значения не парсящиеся как Date
+         *  далее создал Строковую переменную dateOfBirth, в которую сохранил данные даты с json
+         */
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
         String dateOfBirth = object.getJSONObject("dob").getString("date");
 
@@ -46,6 +53,11 @@ public class PersonApi {
         res.setCountry(object.getJSONObject("location").getString("country"));
         res.setUsername(object.getJSONObject("login").getString("username"));
         res.setPassword(object.getJSONObject("login").getString("password"));
+
+        /** Метод parse() класса LocalDateTime использую для получения экземпляра LocalDateTime из строки, переданной в качестве параметра
+         *  передаю в него нашу строку и formatter как модуль форматирования имеющихся данных
+         *  Возвращаемое значение: этот метод возвращает LocalDateTime, который является проанализированным локальным значением даты и времени
+         */
         res.setDateOfBirthday(LocalDateTime.parse(dateOfBirth, formatter));
 
         return res;
