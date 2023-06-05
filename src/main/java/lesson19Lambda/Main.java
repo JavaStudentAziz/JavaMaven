@@ -5,6 +5,7 @@ import ApiLesson.PersonApi;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.function.Function;
 
 public class Main {
    public static void main(String[] args) {
@@ -17,7 +18,7 @@ public class Main {
 
       System.out.println("___________________________________________________________________________________________");
 
-      LambdaExample.sortLambda(personList, new Predicato<Person>() {
+      /*LambdaExample.sortLambda(personList, new Predicato<Person>() {
 	 @Override
 	 public boolean test(Person person) {
 	    return LocalDateTime.now().getYear()
@@ -40,13 +41,20 @@ public class Main {
 
       LambdaExample.sortLambda(personList,
 	      p -> p.getCountry().equals("Spain"));
-
+*/
       // слева 1 тип - можно без скобок
       // больше 1 типо - закрывать в скобки
       // ->
       // если ставим фигурные скобки - должен быть return
       // фигурные скобки ставятся в случаях если есть больше 1 действия
 
+      LambdaExample.sortLambda(personList,
+	      p -> p.getCountry().equals("Spain"),
+	      pp -> {
+		 pp.setCountry("Russia");
+		 System.out.println(pp);
+	      },
+	      p -> p.length());
    }
 }
 
@@ -57,13 +65,24 @@ interface Predicato<T> {
 
 }
 
+interface Consumerito<T> {
+   void accept(T t);
+}
+
 class LambdaExample {
-   public static void sortLambda(List<Person> personList, Predicato<Person> p) {
+   public static void sortLambda(List<Person> personList,
+				 Predicato<Person> p,
+				 Consumerito<Person> c,
+				 Function<String, Integer> f) {
+
+//      for (Person person : personList) {
+//	 if (p.test(person)) System.out.println(person);
+//      }
 
       for (Person person : personList) {
-	 if (p.test(person)) System.out.println(person);
+	 if (p.test(person)) c.accept(person);
+	 f.apply(person.getCountry());
       }
-
    }
 
 }
