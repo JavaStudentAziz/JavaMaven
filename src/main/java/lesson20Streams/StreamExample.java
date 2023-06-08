@@ -4,8 +4,6 @@ import ApiLesson.Person;
 import ApiLesson.PersonApi;
 
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class StreamExample {
     public static void main(String[] args) {
@@ -36,6 +34,6 @@ public class StreamExample {
             System.out.println(person);
         }
         System.out.println("__________________________________________________________________________________________");
-        StreamHomework.lastnameList(personList, 5);
+        StreamHomework.lastnameList(personList, 15);
     }
 }
