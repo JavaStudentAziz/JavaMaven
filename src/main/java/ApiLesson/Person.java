@@ -6,95 +6,117 @@ import java.util.Objects;
 
 public class Person {
 
-   private String name;
-   private String lastName;
-   private String country;
-   private LocalDateTime dateOfBirth;
-   private String username;
-   private String password;
+    private int age;
 
-   public Person() {
-   }
+    public int getAge() {
+        return age;
+    }
 
-   public Person(String name, String lastName, String country, LocalDateTime dateOfBirthday, String username, String password) {
-      this.name = name;
-      this.lastName = lastName;
-      this.country = country;
-      this.dateOfBirth = dateOfBirthday;
-      this.username = username;
-      this.password = password;
-   }
+    public void setAge() {
+        this.age = LocalDateTime.now().getYear() - getDateOfBirthday().getYear();
+    }
 
-   public String getName() {
-      return name;
-   }
+    private String gender;
 
-   public void setName(String name) {
-      this.name = name;
-   }
+    public String getGender() {
+        return gender;
+    }
 
-   public String getLastName() {
-      return lastName;
-   }
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
 
-   public void setLastName(String lastName) {
-      this.lastName = lastName;
-   }
+    private String name;
+    private String lastName;
+    private String country;
+    private LocalDateTime dateOfBirth;
+    private String username;
+    private String password;
 
-   public String getCountry() {
-      return country;
-   }
+    public Person() {
+    }
 
-   public void setCountry(String country) {
-      this.country = country;
-   }
+    public Person(String name, String lastName, String country, LocalDateTime dateOfBirthday, String username, String password) {
+        this.name = name;
+        this.lastName = lastName;
+        this.country = country;
+        this.dateOfBirth = dateOfBirthday;
+        this.username = username;
+        this.password = password;
+    }
 
-   public LocalDateTime getDateOfBirthday() {
-      return dateOfBirth;
-   }
+    public String getName() {
+        return name;
+    }
 
-   public void setDateOfBirthday(LocalDateTime dateOfBirthday) {
-      this.dateOfBirth = dateOfBirthday;
-   }
+    public void setName(String name) {
+        this.name = name;
+    }
 
-   public String getUsername() {
-      return username;
-   }
+    public String getLastName() {
+        return lastName;
+    }
 
-   public void setUsername(String username) {
-      this.username = username;
-   }
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
-   public String getPassword() {
-      return password;
-   }
+    public String getCountry() {
+        return country;
+    }
 
-   public void setPassword(String password) {
-      this.password = password;
-   }
+    public void setCountry(String country) {
+        this.country = country;
+    }
 
-   @Override
-   public boolean equals(Object o) {
-      if (this == o) return true;
-      if (o == null || getClass() != o.getClass()) return false;
-      Person person = (Person) o;
-      return Objects.equals(name, person.name) && Objects.equals(lastName, person.lastName) && Objects.equals(country, person.country) && Objects.equals(dateOfBirth, person.dateOfBirth) && Objects.equals(username, person.username) && Objects.equals(password, person.password);
-   }
+    public LocalDateTime getDateOfBirthday() {
+        return dateOfBirth;
+    }
 
-   @Override
-   public int hashCode() {
-      return Objects.hash(name, lastName, country, dateOfBirth, username, password);
-   }
+    public void setDateOfBirthday(LocalDateTime dateOfBirthday) {
+        this.dateOfBirth = dateOfBirthday;
+    }
 
-   @Override
-   public String toString() {
-      return "Person{" +
-	      "name='" + name + '\'' +
-	      ", lastName='" + lastName + '\'' +
-	      ", country='" + country + '\'' +
-	      ", dateOfBirth=" + dateOfBirth +
-	      ", username='" + username + '\'' +
-	      ", password='" + password + '\'' +
-	      '}';
-   }
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Person person = (Person) o;
+        return Objects.equals(name, person.name) && Objects.equals(lastName, person.lastName) && Objects.equals(country, person.country) && Objects.equals(dateOfBirth, person.dateOfBirth) && Objects.equals(username, person.username) && Objects.equals(password, person.password);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, lastName, gender, age, country, dateOfBirth, username, password);
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "name='" + name + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", gender='" + gender + '\'' +
+                ", age='" + age + '\'' +
+                ", country='" + country + '\'' +
+                ", dateOfBirth=" + dateOfBirth +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                '}';
+    }
 }
