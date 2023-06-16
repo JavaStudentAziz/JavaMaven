@@ -3,37 +3,105 @@ package lesson21;
 import ApiLesson.Person;
 import ApiLesson.PersonApi;
 
+import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Stream;
-
 public class Main {
-   public static void main(String[] args) {
+    public static void main(String[] args) {
 
-      List<Person> personList = PersonApi.getPersonFromApi(5);
+        //ДЗ
+        //1)
+        List<Person> personList = PersonApi.getPersonFromApi(100);
 
-      for (Person person : personList) {
-	 System.out.println(person);
-      }
+        for (Person person : personList) {
+            System.out.println(person);
+        }
 
-      System.out.println("___________________________________________________________________________________________");
+        System.out.println("___________________________________________________________________________________________");
 
-      Stream.of(1,2,3,4,5,6,7,8,9,10,11,12)
-	      .skip(3)
-	      .limit(7)
-	      .mapToInt(m->m)
-	      .average()
-	      .ifPresent(System.out::println);
+        //2) раскидать гендерно и получить 2 листа с мужчинами и женщинами
+        List<Person> maleList =
+                personList.stream()
+                .filter(person -> person.getGender().equals("male"))
+                .toList();
 
-      System.out.println("___________________________________________________________________________________________");
+        maleList.forEach(System.out::println);
 
-      Stream.of(1,2,3,4,5,6,7,8,9,10,11,12)
-	      .findFirst()
-	      .ifPresent(System.out::println);
+        System.out.println("___________________________________________________________________________________________");
 
-      System.out.println("___________________________________________________________________________________________");
+        List<Person> femaleList =
+                personList.stream()
+                .filter(person -> person.getGender().equals("female"))
+                .toList();
 
-      Stream.of(1,2,3,4,5,6,7,8,9,10,11,12)
-	      .findAny()
-	      .ifPresent(System.out::println);
-   }
+        femaleList.forEach(System.out::println);
+
+        System.out.println("___________________________________________________________________________________________");
+
+        //3) от этих листов, так же найти самого взрослого и молодого Person, Вывести
+        System.out.println("Cамый старший среди мужчин: " +
+                maleList.stream()
+                        .max(Comparator.comparing(Person::getAge))
+                        .get()
+        );
+
+        System.out.println("Cамая старшая среди женщин: " +
+                femaleList.stream()
+                        .max(Comparator.comparing(Person::getAge))
+                        .get()
+        );
+
+        System.out.println("Cамый молодой среди мужчин: " +
+                maleList.stream()
+                        .min(Comparator.comparing(Person::getAge))
+                        .get()
+        );
+
+        System.out.println("Cамая молодая среди женщин: " +
+                femaleList.stream()
+                        .min(Comparator.comparing(Person::getAge))
+                        .get()
+        );
+
+        System.out.println("___________________________________________________________________________________________");
+
+        //4) посчитать количество элементов в каждом списке
+        System.out.println("Количество мужчин в списке: " +
+                maleList.stream()
+                        .count());
+
+        System.out.println("Количество женщин в списке: " +
+                femaleList.stream()
+                        .count());
+
+        System.out.println("___________________________________________________________________________________________");
+
+        //5) вывести средний возраст мужчин и отдельно средний возраст женщин
+        System.out.println("Cредний возраст мужчин: " +
+                maleList.stream()
+                        .mapToInt(Person::getAge)
+                        .summaryStatistics()
+                        .getAverage()
+        );
+
+        System.out.println("Cредний возраст женщин: " +
+                femaleList.stream()
+                        .mapToInt(Person::getAge)
+                        .summaryStatistics()
+                        .getAverage()
+        );
+
+        System.out.println("___________________________________________________________________________________________");
+
+        //6) посчитать общий возраст для каждого списка
+        System.out.println("Общий возраст мужчин: " +
+                maleList.stream()
+                        .mapToInt(Person::getAge)
+                        .reduce(0, Integer::sum)
+                );
+        System.out.println("Общий возраст женщин: " +
+                femaleList.stream()
+                        .mapToInt(Person::getAge)
+                        .reduce(0, Integer::sum)
+        );
+    }
 }
